@@ -49,7 +49,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="filtroIdentificacion">
+                                                <input class="form-check-input" type="checkbox" name="filtroIdentificacion" id="cbIdentificacion" onchange="controlarFiltroIdentificacion();">
                                                 <label class="form-check-label" for="gridCheck">
                                                     <strong>Filtrar por documento del paciente</strong>
                                                 </label>
@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="filtroFecha">
+                                            <input class="form-check-input" type="checkbox" name="filtroFecha" id="cbFecha" onchange="controlarFiltroFecha();">
                                             <label class="form-check-label" for="gridCheck">
                                                 <p><strong>Filtrar por fecha</strong></p> 
                                             </label>
@@ -75,20 +75,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <p><input type="number" class="form-control" name="identificacionPaciente" placeholder="Identificación paciente"></p>
+                                        <p><input type="number" class="form-control" name="identificacionPaciente" placeholder="Identificación paciente" id="identificacionPaciente" required readonly></p>
                                     </div>
                                     <div class="col-md-4">
                                         <p>
-                                            <select name="estadoCita" class="form-control">
-                                                <option selected>Estado cita</option>
-                                                <option>Sin agendar</option>
+                                            <select name="estadoCita" class="form-control" required>
+                                                <option selected>Sin agendar</option>
                                                 <option>Agendadas</option>
                                             </select>
                                         </p>
                                         
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="date" class="form-control" name="fechaCitas" >
+                                        <input type="date" class="form-control" name="fechaCitas" id="fechaCitas" required readonly>
                                     </div>                            
                                 </div>
                                 <p class="text-center"><button name="btnBuscar" type="submit" class="btn btn-primary col-md-5 mt-3">Buscar</button></p>                        
@@ -192,6 +191,7 @@
     </main>
     <footer>
     </footer>
+    <script src="controlador.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </body>
