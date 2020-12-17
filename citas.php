@@ -58,7 +58,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="gridCheck">
                                                 <label class="form-check-label" for="gridCheck">
-                                                    <strong>Filtrar por documento del paciente</strong>
+                                                    Filtrar por estado cita
                                                 </label>
                                             </div>
                                         </div>
@@ -72,37 +72,25 @@
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="gridCheck">
-                                            <label class="form-check-label" for="gridCheck">
-                                                <p><strong>Filtrar por fecha</strong></p> 
-                                            </label>
-                                        </div>
-                                    </div>
+                                    </div>                                                            
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <p><input type="number" class="form-control" id="inputCity" placeholder="Identificación paciente"></p>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <input type="number" class="form-control" id="inputCity" placeholder="Identificación paciente">
                                     </div>
-                                    <div class="col-md-4">
-                                        <p>
-                                            <select id="inputState" class="form-control">
-                                                <option selected>Estado cita</option>
-                                                <option>Sin agendar</option>
-                                                <option>Agendadas</option>
-                                            </select>
-
-                                        </p>
-                                        
+                                    <div class="form-group col-md-4">
+                                        <select id="inputState" class="form-control">
+                                            <option selected>Estado cita</option>
+                                            <option>Sin asignar</option>
+                                            <option>Asignada</option>
+                                            <option>Todas</option>
+                                        </select>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="form-group col-md-4">
                                         <input type="date" class="form-control" id="inputZip" placeholder="Fecha">
                                     </div>                            
-                                </div>                                
-                                <p class="text-center"><button type="submit" class="btn btn-primary col-md-5 mt-3">Buscar</button></p>                        
-                                
+                                </div>
+                                <p class="text-center"><button type="submit" class="btn btn-primary col-md-2">Buscar</button></p>                                
                             </form>
                         </div>
                     </div>
