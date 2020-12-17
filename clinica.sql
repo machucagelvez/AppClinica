@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2020 a las 01:53:43
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.9
+-- Tiempo de generación: 17-12-2020 a las 06:28:20
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -21,6 +21,36 @@ SET time_zone = "+00:00";
 -- Base de datos: `clinica`
 --
 
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_agendarCita` (IN `id` INT, IN `identificacion` INT)  NO SQL
+UPDATE cita SET estadoCita = 'agendada', idPacienteCita = identificacion where idCita = id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cancelarCita` (IN `id` INT)  NO SQL
+UPDATE cita SET estadoCita = 'disponible', idPacienteCita = null where idCita = id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarAgendadasFecha` (IN `fecha` VARCHAR(20))  NO SQL
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita where estadoCita = 'agendada' and fechaCita = fecha$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarCitaDocumento` (IN `identificacion` INT)  NO SQL
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita where estadoCita = 'agendada' and idPaciente = identificacion$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarCitasAgendadas` ()  NO SQL
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita where estadoCita = 'agendada'$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarCitasDisponibles` ()  NO SQL
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico where estadoCita = 'disponible'$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarDisponiblesFecha` (IN `fecha` VARCHAR(20))  NO SQL
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico where estadoCita = 'disponible' and fechaCita = fecha$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarDocumentoFecha` (IN `identificacion` INT, IN `fecha` VARCHAR(20))  NO SQL
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita where estadoCita = 'agendada' and idPaciente = identificacion and fechaCita = fecha$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -33,10 +63,20 @@ CREATE TABLE `cita` (
   `fechaCita` varchar(20) NOT NULL,
   `horaInicioCita` varchar(20) NOT NULL,
   `horaFinCita` varchar(20) NOT NULL,
-  `idPacienteCita` int(20) NOT NULL,
+  `idPacienteCita` int(20) DEFAULT NULL,
   `idMedicoCita` int(20) NOT NULL,
   `idUsuarioAgendador` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `cita`
+--
+
+INSERT INTO `cita` (`idCita`, `estadoCita`, `fechaCita`, `horaInicioCita`, `horaFinCita`, `idPacienteCita`, `idMedicoCita`, `idUsuarioAgendador`) VALUES
+(1, 'agendada', '2020-12-17', '13:00', '13:30', 2222, 8888, 1111),
+(2, 'agendada', '2020-12-17', '13:00', '14:00', 2222, 9999, 4444),
+(3, 'disponible', '2020-12-18', '10:00', '12:15', NULL, 9999, 2222),
+(4, 'disponible', '2020-12-18', '09:00', '09:20', NULL, 8888, 3333);
 
 -- --------------------------------------------------------
 
@@ -49,6 +89,14 @@ CREATE TABLE `consultorio` (
   `ubicacionConsultorio` varchar(30) NOT NULL,
   `estadoConsultorio` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `consultorio`
+--
+
+INSERT INTO `consultorio` (`idConsultorio`, `ubicacionConsultorio`, `estadoConsultorio`) VALUES
+(1, '2-105', 'disponible'),
+(2, '2-106', 'disponible');
 
 -- --------------------------------------------------------
 
@@ -92,6 +140,14 @@ CREATE TABLE `medico` (
   `idConsultorioMedico` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `medico`
+--
+
+INSERT INTO `medico` (`idMedico`, `tipoDocumentoMedico`, `nombreMedico`, `apellidoMedico`, `emailMedico`, `horaIngresoMedico`, `horaSalidaMedico`, `idConsultorioMedico`) VALUES
+(8888, 'c.c', 'Miguelucho', 'Pajucho', 'miguelucho@gmail.com', '06:00', '20:00', 2),
+(9999, 'c.c', 'Pepe', 'Perez', 'pepe@gmail.com', '08:00', '18:00', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -118,6 +174,14 @@ CREATE TABLE `paciente` (
   `emailPaciente` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `paciente`
+--
+
+INSERT INTO `paciente` (`idPaciente`, `tipoDocumentoPaciente`, `nombrePaciente`, `apellidoPaciente`, `telefonoPaciente`, `emailPaciente`) VALUES
+(1111, 'c.c', 'Esperanza', 'Gomez', 2302020, 'esperanza@gmail.com'),
+(2222, 'c.c', 'Yo si', 'To Ko', 2312020, 'yositoko@gmail.com');
+
 -- --------------------------------------------------------
 
 --
@@ -130,6 +194,16 @@ CREATE TABLE `usuario` (
   `rolUsuario` varchar(20) NOT NULL,
   `claveUsuario` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idUsuario`, `nombreUsuario`, `rolUsuario`, `claveUsuario`) VALUES
+(1111, 'carlos', 'admin', '1234'),
+(2222, 'miguel', 'admin', '1234'),
+(3333, 'santiago', 'admin', '1234'),
+(4444, 'fabian', 'admin', '1234');
 
 --
 -- Índices para tablas volcadas
@@ -149,7 +223,8 @@ ALTER TABLE `cita`
 -- Indices de la tabla `consultorio`
 --
 ALTER TABLE `consultorio`
-  ADD PRIMARY KEY (`idConsultorio`);
+  ADD PRIMARY KEY (`idConsultorio`),
+  ADD UNIQUE KEY `ubicacionConsultorio` (`ubicacionConsultorio`);
 
 --
 -- Indices de la tabla `descanso`
@@ -199,13 +274,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `consultorio`
 --
 ALTER TABLE `consultorio`
-  MODIFY `idConsultorio` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idConsultorio` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `descanso`
