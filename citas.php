@@ -171,21 +171,76 @@
                                         <table class="table table-bordered table-hover">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th>Estado</th>
-                                                    <th>Fecha</th>
+                                                    <th>Estado cita</th>
+                                                    <th>Fecha cita</th>
                                                     <th>Hora Inicio</th>
                                                     <th>Hora fin</th>
-                                                    <th>Medico</th>
-                                                    <th>Consultorio</th>
-                                                    <th>Paciente</th>
+                                                    <th>Medico cita</th>
+                                                    <th>Consultorio cita</th>
+                                                    <th>Paciente cita</th>
                                                     <th>Ver detalles</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td scope="row">fila 1</td>
-                                                    <td>fila 1</td>
-                                                    <td>fila 1</td>
+                                                    <td scope="row">
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelId">
+                                                        Agendar
+                                                        </button>
+                                                    </td>
+                                                    <td>2020-12-31</td>
+                                                    <td>08:00</td>
+                                                    <td>08:30</td>
+                                                    <td>Juan Perez</td>
+                                                    <td>2-15</td> 
+                                                    <td>Elsa Valencia</td> 
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelId">
+                                                            Ver detalles
+                                                        </button>
+                                                    </td>  
+                                                    
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Gestion de cita</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Body
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Detalles</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Body
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </tr>
                                             </tbody>
                                         </table>
