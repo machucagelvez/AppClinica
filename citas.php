@@ -151,11 +151,7 @@
                             else if($filtroEstado=='2' && $filtroFecha=='1' && $filtroDocumento=='1'){
                                 $consultaSQL = "call sp_listarDocumentoFecha($documento,'$fechaBuscar')";
                             }
-                            else{
-                                echo 'error de filtros';
-                                
-                                return;
-                            }
+                            
 
                             $conexion = new BaseDatos();
                             $listado = $conexion->leerDatos($consultaSQL);
@@ -168,13 +164,40 @@
 
                         ?>
                         <?php if($respuesta=='1'): ?>
-                            <h2>Funciona</h2>
+                            <div class="card text-center mb-5 mt-5 border border-primary">
+                                <h5 class="card-header text-center bg-primary text-white">Busqueda ejecutada</h5>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>Estado</th>
+                                                    <th>Fecha</th>
+                                                    <th>Hora Inicio</th>
+                                                    <th>Hora fin</th>
+                                                    <th>Medico</th>
+                                                    <th>Consultorio</th>
+                                                    <th>Paciente</th>
+                                                    <th>Ver detalles</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td scope="row">fila 1</td>
+                                                    <td>fila 1</td>
+                                                    <td>fila 1</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         <?php endif ?>
                         <?php if($respuesta=='2'): ?>
                             <div class="card text-center mb-5 mt-5 border border-primary">
-                            <h5 class="card-header text-center bg-primary text-white">Busqueda ejecutada</h5>
+                                <h5 class="card-header text-center bg-primary text-white">Busqueda ejecutada</h5>
                                 <div class="card-body">
-                                    <div class="alert alert-info" role="alert">
+                                    <div class="alert alert-primary" role="alert">
                                         <p class="text-dark mt-3"><strong>No se encontraron citas al realizar la consulta</strong></p>
                                     </div>
                                 </div>
