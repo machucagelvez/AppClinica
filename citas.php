@@ -75,19 +75,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <p><input type="number" class="form-control" name="identificacionPaciente" placeholder="Identificación paciente" id="identificacionPaciente" required readonly></p>
+                                        <p><input type="number" class="form-control border-primary" name="identificacionPaciente" placeholder="Identificación paciente" id="identificacionPaciente" required readonly></p>
                                     </div>
                                     <div class="col-md-4">
                                         <p>
-                                            <select name="estadoCita" class="form-control" required>
-                                                <option selected>Sin agendar</option>
-                                                <option>Agendadas</option>
+                                            <select name="estadoCita" id="estadoCita" class="form-control border-primary">
+                                                <option selected value="1">Sin agendar</option>
+                                                <option value="2">Agendadas</option>
                                             </select>
                                         </p>
                                         
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="date" class="form-control" name="fechaCitas" id="fechaCitas" required readonly>
+                                        <input type="date" class="form-control border-primary" name="fechaCitas" id="fechaCitas" required readonly>
                                     </div>                            
                                 </div>
                                 <p class="text-center"><button name="btnBuscar" type="submit" class="btn btn-primary col-md-5 mt-3">Buscar</button></p>                        
@@ -102,15 +102,13 @@
                     <?php if(isset($_POST['btnBuscar'])): ?>
                         <?php
                             //filtro estado cita
-                            if($_POST['estadoCita']=='Sin agendar'){
+                            if(isset($_POST['estadoCita'])=='Sin agendar'){
                                 $filtroEstado = '1';
                             }
-                            else if($_POST['estadoCita']=='Agendadas'){
+                            else{
                                 $filtroEstado = '2';
                             }
-                            else{
-                                $filtroEstado = '3';
-                            }
+                            
 
                             
                             //filtro identificacion
@@ -144,10 +142,10 @@
                             else if($filtroEstado=='1' && $filtroFecha=='1' && $filtroDocumento=='2'){
                                 $consultaSQL = "call sp_listarDisponiblesFecha('$fechaBuscar')";
                             }
-                            else if($filtroEstado=='2' && $filtroFecha=='1' && $filtroDocumento=='2'){
+                            else if($filtroFecha=='1' && $filtroDocumento=='2'){
                                 $consultaSQL = "call sp_listarAgendadasFecha('$fechaBuscar')";
                             }
-                            else if($filtroEstado=='2' && $filtroFecha=='2' && $filtroDocumento=='1'){
+                            else if($filtroFecha=='2' && $filtroDocumento=='1'){
                                 $consultaSQL = "call sp_listarCitaDocumento($documento)";
                             }
                             else if($filtroEstado=='2' && $filtroFecha=='1' && $filtroDocumento=='1'){
