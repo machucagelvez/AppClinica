@@ -102,19 +102,18 @@
                     <?php if(isset($_POST['btnBuscar'])): ?>
                         <?php
                             //filtro estado cita
-                            if(isset($_POST['estadoCita'])=='Sin agendar'){
+                            if($_POST['estadoCita']=='1'){
                                 $filtroEstado = '1';
                             }
                             else{
                                 $filtroEstado = '2';
+                                
                             }
-                            
-
-                            
                             //filtro identificacion
                             if(isset($_POST['filtroIdentificacion'])){
                                 $filtroDocumento = '1';
-                                $documento = $_POST['identificacionPaciente'];         
+                                $documento = $_POST['identificacionPaciente'];
+                            
                             }
                             else{
                                 $filtroDocumento = '2';
@@ -142,25 +141,38 @@
                             else if($filtroEstado=='1' && $filtroFecha=='1' && $filtroDocumento=='2'){
                                 $consultaSQL = "call sp_listarDisponiblesFecha('$fechaBuscar')";
                             }
-                            else if($filtroFecha=='1' && $filtroDocumento=='2'){
+                            else if($filtroFecha=='1' && $filtroDocumento=='2' && $filtroDocumento=='2'){
                                 $consultaSQL = "call sp_listarAgendadasFecha('$fechaBuscar')";
                             }
-                            else if($filtroFecha=='2' && $filtroDocumento=='1'){
+                            else if($filtroFecha=='2' && $filtroDocumento=='1' && $filtroEstado=='2'){
                                 $consultaSQL = "call sp_listarCitaDocumento($documento)";
                             }
                             else if($filtroEstado=='2' && $filtroFecha=='1' && $filtroDocumento=='1'){
                                 $consultaSQL = "call sp_listarDocumentoFecha($documento,'$fechaBuscar')";
                             }
-                            
-
-                            $conexion = new BaseDatos();
-                            $listado = $conexion->leerDatos($consultaSQL);
-                            if($listado){
-                                $respuesta='1';
+                            else if($filtroEstado=='1' && $filtroFecha=='2' && $filtroDocumento=='1'){
+                                $consultaSQL = null;
                             }
                             else{
-                                $respuesta='2';
+                                $consultaSQL = null;
                             }
+                            
+                            if($consultaSQL==null){
+                                $respuesta = '2';
+                                
+                            }
+                            else{
+                                $conexion = new BaseDatos();
+                                $listado = $conexion->leerDatos($consultaSQL);
+                                if($listado){
+                                    $respuesta='1';
+                                }
+                                else{
+                                    $respuesta='2';
+                                }
+                            }
+                            
+                            
 
                         ?>
                         <?php if($respuesta=='1'): ?>
@@ -178,70 +190,82 @@
                                                     <th>Medico cita</th>
                                                     <th>Consultorio cita</th>
                                                     <th>Paciente cita</th>
-                                                    <th>Ver detalles</th>
+                                                    <th>Detalles</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td scope="row">
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelId">
-                                                        Agendar
-                                                        </button>
-                                                    </td>
-                                                    <td>2020-12-31</td>
-                                                    <td>08:00</td>
-                                                    <td>08:30</td>
-                                                    <td>Juan Perez</td>
-                                                    <td>2-15</td> 
-                                                    <td>Elsa Valencia</td> 
-                                                    <td>
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modellId">
-                                                            Ver detalles
-                                                        </button>
-                                                    </td>  
-                                                    
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Gestion de cita</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    Body
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="modellId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Detalles</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    Body
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                    
+                                                <?php foreach($listado as $fila): ?>
+                                                    <?php
+                                                        if($fila['estadoCita']=="agendada"){
+                                                            $estado = 'Cancelar';
+                                                            $nombreCompletoPaciente = $fila['nombrePaciente']." ".$fila['apellidoPaciente'];
+                                                        }
+                                                        else{
+                                                            $estado = 'Agendar';
+                                                            $nombreCompletoPaciente = "No asignado";
+                                                        }  
+                                                    ?>
+                                                    <tr>
+                                                        <td scope="row">
+                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelId">
+                                                            <?= $estado ?>
+                                                            </button>
+                                                        </td>
+                                                        <td><?= $fila['fechaCita'] ?></td>
+                                                        <td><?= $fila['horaInicioCita'] ?></td>
+                                                        <td><?= $fila['horaFinCita'] ?></td>
+                                                        <td><?= $fila['nombreMedico']." ".$fila['apellidoMedico'] ?></td>
+                                                        <td><?= $fila['ubicacionConsultorio'] ?></td> 
+                                                        <td><?= $nombreCompletoPaciente ?></td> 
+                                                        <td>
+                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modellId">
+                                                                Detalles
+                                                            </button>
+                                                        </td>  
+                                                        
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Gestion de cita</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Body
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </tr>
+                                                        
+                                                        
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="modellId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Detalles</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Body
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </tr>
+                                                <?php endforeach ?>
                                             </tbody>
                                         </table>
                                     </div>

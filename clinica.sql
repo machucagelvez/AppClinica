@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2020 a las 06:28:20
+-- Tiempo de generación: 17-12-2020 a las 22:28:33
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.13
 
@@ -32,22 +32,22 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cancelarCita` (IN `id` INT)  NO 
 UPDATE cita SET estadoCita = 'disponible', idPacienteCita = null where idCita = id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarAgendadasFecha` (IN `fecha` VARCHAR(20))  NO SQL
-select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita where estadoCita = 'agendada' and fechaCita = fecha$$
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita INNER JOIN consultorio on medico.idConsultorioMedico = consultorio.idConsultorio where estadoCita = 'agendada' and fechaCita = fecha$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarCitaDocumento` (IN `identificacion` INT)  NO SQL
-select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita where estadoCita = 'agendada' and idPaciente = identificacion$$
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita INNER JOIN consultorio on consultorio.idConsultorio = medico.idConsultorioMedico where estadoCita = 'agendada' and idPaciente = identificacion$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarCitasAgendadas` ()  NO SQL
-select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita where estadoCita = 'agendada'$$
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita  INNER JOIN consultorio on medico.idConsultorioMedico = consultorio.idConsultorio where estadoCita = 'agendada'$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarCitasDisponibles` ()  NO SQL
-select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico where estadoCita = 'disponible'$$
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN consultorio on consultorio.idConsultorio = medico.idConsultorioMedico where estadoCita = 'disponible'$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarDisponiblesFecha` (IN `fecha` VARCHAR(20))  NO SQL
-select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico where estadoCita = 'disponible' and fechaCita = fecha$$
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN consultorio on consultorio.idConsultorio = medico.idConsultorioMedico where estadoCita = 'disponible' and fechaCita = fecha$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listarDocumentoFecha` (IN `identificacion` INT, IN `fecha` VARCHAR(20))  NO SQL
-select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita where estadoCita = 'agendada' and idPaciente = identificacion and fechaCita = fecha$$
+select * from cita INNER JOIN medico on cita.idMedicoCita = medico.idMedico INNER JOIN paciente on paciente.idPaciente = cita.idPacienteCita INNER JOIN consultorio on medico.idConsultorioMedico = consultorio.idConsultorio where estadoCita = 'agendada' and idPaciente = identificacion and fechaCita = fecha$$
 
 DELIMITER ;
 
