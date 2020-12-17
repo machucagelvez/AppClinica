@@ -207,7 +207,7 @@
                                                     ?>
                                                     <tr>
                                                         <td scope="row">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregar<?= $fila['idCita'] ?>">
+                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gestionar<?= $fila['idCita'] ?>">
                                                             <?= $estado ?>
                                                             </button>
                                                         </td>
@@ -223,8 +223,38 @@
                                                             </button>
                                                         </td>  
                                                         
+                                                        <?php if ($estado=='Cancelar'): ?> 
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="gestionar<?= $fila['idCita'] ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title">Gestion de cita</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form action="citas.php" method="POST">
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-6 col-form-label">Documento:</label>
+                                                                                    <div class="col-sm-10 col-md-6">
+                                                                                        <input type="number" class="form-control" name="precio">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="submit" class="btn btn-primary" name="botonAsignar">Cancelar</button>
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>                                                        
+                                                        <?php endif ?>
+                                                        
                                                         <!-- Modal -->
-                                                        <div class="modal fade" id="agregar<?= $fila['idCita'] ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                        <div class="modal fade" id="gestionar<?= $fila['idCita'] ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
