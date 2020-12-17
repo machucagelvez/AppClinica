@@ -207,7 +207,7 @@
                                                     ?>
                                                     <tr>
                                                         <td scope="row">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelId">
+                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregar<?= $fila['idCita'] ?>">
                                                             <?= $estado ?>
                                                             </button>
                                                         </td>
@@ -218,13 +218,13 @@
                                                         <td><?= $fila['ubicacionConsultorio'] ?></td> 
                                                         <td><?= $nombreCompletoPaciente ?></td> 
                                                         <td>
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modellId">
+                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detalles<?= $fila['idCita'] ?>">
                                                                 Detalles
                                                             </button>
                                                         </td>  
                                                         
                                                         <!-- Modal -->
-                                                        <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                        <div class="modal fade" id="agregar<?= $fila['idCita'] ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
@@ -234,9 +234,17 @@
                                                                             </button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        Body
+                                                                        <form action="citas.php" method="POST">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-sm-6 col-form-label">Documento:</label>
+                                                                                <div class="col-sm-10 col-md-6">
+                                                                                    <input type="number" class="form-control" name="precio">
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                     <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-primary" name="botonAsignar">Asignar</button>
                                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                                                     </div>
                                                                 </div>
@@ -245,7 +253,7 @@
                                                         
                                                         
                                                         <!-- Modal -->
-                                                        <div class="modal fade" id="modellId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                        <div class="modal fade" id="detalles<?= $fila['idCita'] ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
