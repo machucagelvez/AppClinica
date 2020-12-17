@@ -1,0 +1,9 @@
+.fondo{
+    background-image: url(https://github.com/machucagelvez/AppClinica/blob/main/img/arq.jpg?raw=true);
+    background-attachment: fixed;
+}
+
+.recepcion{
+    background-image: url(https://github.com/machucagelvez/AppClinica/blob/main/img/recepcion.jpg?raw=true);
+    background-attachment: fixed;
+}
