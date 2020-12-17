@@ -1,5 +1,6 @@
 <?php
     include("BaseDatos.php");
+    $respuesta=null;
 
 ?>
 
@@ -97,11 +98,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <?php
-                        if(isset($_POST['btnBuscar'])){
-                            
+            <div class="row justify-content-center">
+                <div class="col-md-11">
+                    <?php if(isset($_POST['btnBuscar'])): ?>
+                        <?php
                             //filtro estado cita
                             if($_POST['estadoCita']=='Sin agendar'){
                                 $filtroEstado = '1';
@@ -117,9 +117,7 @@
                             //filtro identificacion
                             if(isset($_POST['filtroIdentificacion'])){
                                 $filtroDocumento = '1';
-                                $documento = $_POST['identificacionPaciente'];
-                                echo $documento;
-                                
+                                $documento = $_POST['identificacionPaciente'];         
                             }
                             else{
                                 $filtroDocumento = '2';
@@ -129,33 +127,31 @@
                             if(isset($_POST['filtroFecha'])){
                                 $filtroFecha = '1';
                                 $fechaBuscar = $_POST['fechaCitas'];
-                                echo $fechaBuscar;
                             }
                             else{
                                 $filtroFecha = '2';
                             }
-                            echo "<br>Filtro documento:$filtroDocumento";
-                            echo "<br>Filtro fecha:$filtroFecha";
-                            echo "<br>Filtro estado:$filtroEstado";
+                            //echo "<br>Filtro documento:$filtroDocumento";
+                            //echo "<br>Filtro fecha:$filtroFecha";
+                            //echo "<br>Filtro estado:$filtroEstado";
 
                             //evaluamos las condiciones para saber que procedimiento almacenado usar
                             if($filtroEstado=='1' && $filtroFecha=='2' && $filtroDocumento=='2'){
                                 $consultaSQL = "call sp_listarCitasDisponibles";
-                                
                             }
-                            if($filtroEstado=='2' && $filtroFecha=='2' && $filtroDocumento=='2'){
+                            else if($filtroEstado=='2' && $filtroFecha=='2' && $filtroDocumento=='2'){
                                 $consultaSQL = "call sp_listarCitasAgendadas";
                             }
-                            if($filtroEstado=='1' && $filtroFecha=='1' && $filtroDocumento=='2'){
+                            else if($filtroEstado=='1' && $filtroFecha=='1' && $filtroDocumento=='2'){
                                 $consultaSQL = "call sp_listarDisponiblesFecha('$fechaBuscar')";
                             }
-                            if($filtroEstado=='2' && $filtroFecha=='1' && $filtroDocumento=='2'){
+                            else if($filtroEstado=='2' && $filtroFecha=='1' && $filtroDocumento=='2'){
                                 $consultaSQL = "call sp_listarAgendadasFecha('$fechaBuscar')";
                             }
-                            if($filtroEstado=='2' && $filtroFecha=='2' && $filtroDocumento=='1'){
+                            else if($filtroEstado=='2' && $filtroFecha=='2' && $filtroDocumento=='1'){
                                 $consultaSQL = "call sp_listarCitaDocumento($documento)";
                             }
-                            if($filtroEstado=='2' && $filtroFecha=='1' && $filtroDocumento=='1'){
+                            else if($filtroEstado=='2' && $filtroFecha=='1' && $filtroDocumento=='1'){
                                 $consultaSQL = "call sp_listarDocumentoFecha($documento,'$fechaBuscar')";
                             }
                             else{
@@ -167,16 +163,27 @@
                             $conexion = new BaseDatos();
                             $listado = $conexion->leerDatos($consultaSQL);
                             if($listado){
-                                echo 'funciona';
+                                $respuesta='1';
                             }
                             else{
-                                //falta implementar
-                                echo '<br>no se encontraron registros';
+                                $respuesta='2';
                             }
-                        
-                            
-                        }
-                    ?>
+
+                        ?>
+                        <?php if($respuesta=='1'): ?>
+                            <h2>Funciona</h2>
+                        <?php endif ?>
+                        <?php if($respuesta=='2'): ?>
+                            <div class="card text-center mb-5 mt-5 border border-primary">
+                            <h5 class="card-header text-center bg-primary text-white">Busqueda ejecutada</h5>
+                                <div class="card-body">
+                                    <div class="alert alert-info" role="alert">
+                                        <p class="text-dark mt-3"><strong>No se encontraron citas al realizar la consulta</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                    <?php endif ?>
                 </div>
             </div>
                       
