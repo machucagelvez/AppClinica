@@ -36,8 +36,8 @@
     <main>
         <div class="container">
             <div class="row justify-content-center mt-5">
-                <div class="col-md-12 mt-5">
-                    <h1 class="text-center text-primary mt-5">EN CONSTRUCCION</h1>
+                <div class="col-md-6 mt-5">
+                    <h2 class="text-primary mt-5 text-center">EN CONSTRUCCION</h2>
                 </div>
             </div>
                       
