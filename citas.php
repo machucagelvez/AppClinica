@@ -239,13 +239,13 @@
                                                                                 <div class="form-group row">
                                                                                     <label class="col-sm-6 col-form-label">Documento:</label>
                                                                                     <div class="col-sm-10 col-md-6">
-                                                                                        <input type="number" class="form-control" name="precio">
+                                                                                        <input type="number" class="form-control" name="cancelar">
                                                                                     </div>
                                                                                 </div>
                                                                             </form>
                                                                         </div>
                                                                         <div class="modal-footer">
-                                                                            <button type="submit" class="btn btn-primary" name="botonAsignar">Cancelar</button>
+                                                                            <button type="submit" class="btn btn-primary" name="botonCancelar">Cancelar</button>
                                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                                                         </div>
                                                                     </div>
@@ -268,15 +268,16 @@
                                                                             <div class="form-group row">
                                                                                 <label class="col-sm-6 col-form-label">Documento:</label>
                                                                                 <div class="col-sm-10 col-md-6">
-                                                                                    <input type="number" class="form-control" name="precio">
+                                                                                    <input type="number" class="form-control" name="documento">
                                                                                 </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="submit" class="btn btn-primary" name="botonAsignar">Asignar</button>
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                                                             </div>
                                                                         </form>
                                                                     </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="submit" class="btn btn-primary" name="botonAsignar">Asignar</button>
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                    </div>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -303,7 +304,17 @@
                                                             </div>
                                                         </div>
                                                     </tr>
+                                                    <?php if(isset($_POST["botonAsignar"])): ?>
+                                                        <?php
+                                                            $id = $fila['idCita'];
+                                                            $documento = $_POST['documento'];
+                                                            $transaccion = new BaseDatos();
+                                                            $consultaSQL = "call sp_agendarCita($id, $documento)";                                                        
+                                                            $transaccion->escribirDatos($consultaSQL);
+                                                        ?>
+                                                    <?php endif ?>                                                   
                                                 <?php endforeach ?>
+                                                    
                                             </tbody>
                                         </table>
                                     </div>
