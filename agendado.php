@@ -26,10 +26,11 @@
         <?php
             session_start();
             $respuesta = $_SESSION['respuesta'];
-            if ($respuesta==1) { 
-            ?>
-                <div class="container">
-                    <div class="row justify-content-center mt-5 mb-5">
+            
+        ?>
+        <?php if ($respuesta==1) : ?>
+            <div class="container">
+                <div class="row justify-content-center mt-5 mb-5">
                         <div class="card">
                             <div class="card-header bg-primary text-white font-weight-bold">
                                 Cita agendada existosamente
@@ -44,19 +45,26 @@
                                 </blockquote>
                             </div>
                         </div>
+                </div>
+            </div>
+        <?php endif ?>
+        <?php if($respuesta==0): ?>
+            <div class="container">
+                <div class="row justify-content-center mt-5 mb-5">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white font-weight-bold">
+                            Error al agendar la cita
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                            <p>PACIENTE NO ENCONTRADO</p>
+                            <p class="text-center"><a href="citas.php" class="btn btn-primary">Aceptar</a></p>
+                            </blockquote>
+                        </div>
                     </div>
                 </div>
-            
-            <?php
-            }
-            else {
-                $resultado = "Falló";
-            }
-            
-        ?>
-            
-
-
+            </div>
+        <?php endif ?>
     </main>
 
     <footer class="bg-primary text-light">

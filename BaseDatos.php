@@ -31,7 +31,8 @@ class BaseDatos{
             return true;
         }
         else{
-            print_r($queryEscribirDatos->errorInfo());
+            //print_r($queryEscribirDatos->errorInfo());
+            return false;
         }
     }
 
@@ -42,6 +43,7 @@ class BaseDatos{
         $queryListarDatos->setFetchMode(PDO::FETCH_ASSOC);
 
         $resultado = $queryListarDatos->execute();
+        
         return ($queryListarDatos->fetchAll());
     }
 }

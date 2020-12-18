@@ -284,7 +284,7 @@
                                                                             
                                                                             <div class="form-group">
                                                                                 <label>Documento:</label>
-                                                                                <input type="number" class="form-control" name="documento">
+                                                                                <input type="number" class="form-control" name="documento" required>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <label>Hora cita:</label>

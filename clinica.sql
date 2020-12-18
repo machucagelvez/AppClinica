@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2020 a las 22:28:33
+-- Tiempo de generación: 18-12-2020 a las 20:16:53
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.13
 
@@ -25,8 +25,11 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_agendarCita` (IN `id` INT, IN `identificacion` INT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_agendarCita` (IN `id` INT, IN `identificacion` INT)  MODIFIES SQL DATA
 UPDATE cita SET estadoCita = 'agendada', idPacienteCita = identificacion where idCita = id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_buscarPaciente` (IN `identificacion` INT)  NO SQL
+select * from paciente where idPaciente = identificacion$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_cancelarCita` (IN `id` INT)  NO SQL
 UPDATE cita SET estadoCita = 'disponible', idPacienteCita = null where idCita = id$$
@@ -73,10 +76,15 @@ CREATE TABLE `cita` (
 --
 
 INSERT INTO `cita` (`idCita`, `estadoCita`, `fechaCita`, `horaInicioCita`, `horaFinCita`, `idPacienteCita`, `idMedicoCita`, `idUsuarioAgendador`) VALUES
-(1, 'agendada', '2020-12-17', '13:00', '13:30', 2222, 8888, 1111),
 (2, 'agendada', '2020-12-17', '13:00', '14:00', 2222, 9999, 4444),
-(3, 'disponible', '2020-12-18', '10:00', '12:15', NULL, 9999, 2222),
-(4, 'disponible', '2020-12-18', '09:00', '09:20', NULL, 8888, 3333);
+(3, 'agendada', '2020-12-18', '10:00', '12:15', 1111, 9999, 2222),
+(5, 'disponible', '2020-12-31', '08:30', '09:00', NULL, 1111, 4444),
+(6, 'disponible', '2020-12-31', '10:30', '11:00', NULL, 2222, 4444),
+(7, 'disponible', '2020-12-31', '13:30', '14:00', NULL, 3333, 4444),
+(8, 'disponible', '2020-12-31', '14:30', '15:00', NULL, 9999, 4444),
+(9, 'disponible', '2020-12-24', '08:30', '09:00', NULL, 1111, 4444),
+(10, 'disponible', '2020-12-24', '09:30', '10:00', NULL, 2222, 4444),
+(11, 'disponible', '2020-12-24', '11:00', '11:45', NULL, 9999, 4444);
 
 -- --------------------------------------------------------
 
@@ -96,7 +104,9 @@ CREATE TABLE `consultorio` (
 
 INSERT INTO `consultorio` (`idConsultorio`, `ubicacionConsultorio`, `estadoConsultorio`) VALUES
 (1, '2-105', 'disponible'),
-(2, '2-106', 'disponible');
+(2, '2-106', 'disponible'),
+(3, '2-220', 'disponible'),
+(4, '2-250', 'disponible');
 
 -- --------------------------------------------------------
 
@@ -145,7 +155,9 @@ CREATE TABLE `medico` (
 --
 
 INSERT INTO `medico` (`idMedico`, `tipoDocumentoMedico`, `nombreMedico`, `apellidoMedico`, `emailMedico`, `horaIngresoMedico`, `horaSalidaMedico`, `idConsultorioMedico`) VALUES
-(8888, 'c.c', 'Miguelucho', 'Pajucho', 'miguelucho@gmail.com', '06:00', '20:00', 2),
+(1111, 'c.c', 'Gustavo', 'Petro', 'petrico@gmail.com', '07:00', '20:00', 2),
+(2222, 'c.c', 'Miguel', 'Agudelo', 'miguelucho@gmail.com', '07:00', '20:00', 3),
+(3333, 'c.c', 'Sigmund ', 'Freud', 'freudbunny@gmail.com', '07:00', '20:00', 4),
 (9999, 'c.c', 'Pepe', 'Perez', 'pepe@gmail.com', '08:00', '18:00', 1);
 
 -- --------------------------------------------------------
@@ -180,7 +192,10 @@ CREATE TABLE `paciente` (
 
 INSERT INTO `paciente` (`idPaciente`, `tipoDocumentoPaciente`, `nombrePaciente`, `apellidoPaciente`, `telefonoPaciente`, `emailPaciente`) VALUES
 (1111, 'c.c', 'Esperanza', 'Gomez', 2302020, 'esperanza@gmail.com'),
-(2222, 'c.c', 'Yo si', 'To Ko', 2312020, 'yositoko@gmail.com');
+(2222, 'c.c', 'Yo si', 'To Ko', 2312020, 'yositoko@gmail.com'),
+(5555, 'c.c', 'Alvaro ', 'Uribe', 2303434, 'falsopositivo@gmail.com'),
+(6666, 'c.c', 'Diego', 'Maradona', 4456765, 'maragol@gmail.com'),
+(7777, 'c.c', 'Alvaro ', 'Uribe', 2303434, 'falsopositivo@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -274,13 +289,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `consultorio`
 --
 ALTER TABLE `consultorio`
-  MODIFY `idConsultorio` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idConsultorio` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `descanso`
