@@ -2,19 +2,21 @@
 
 include("BaseDatos.php");
 
-    if(isset($_POST["botonAsignar"])){
+    if(isset($_POST["botonCancelar"])){
         $id = $_GET["id"];
+        $paciente = $_POST['paciente'];
         $documento = $_POST['documento'];
         $hora = $_POST['hora'];
         $consultorio = $_POST['consultorio'];
         $medico = $_POST['medico'];
         $transaccion = new BaseDatos();
-        $consultaSQL = "call sp_agendarCita($id, $documento)";                                                        
+        $consultaSQL = "call sp_cancelarCita($id)";                                                        
         $transaccion->escribirDatos($consultaSQL);
         session_start();
         
         if ($transaccion) {
             $_SESSION['respuesta'] = 1;
+            $_SESSION['paciente'] = $paciente;
             $_SESSION['documento'] = $documento;
             $_SESSION['hora'] = $hora;
             $_SESSION['consultorio'] = $consultorio;
@@ -23,7 +25,7 @@ include("BaseDatos.php");
         else {
             $_SESSION['respuesta'] = 0;
         }
-        header("location: agendado.php");
+        header("location: cancelado.php");
     }
 
 ?>

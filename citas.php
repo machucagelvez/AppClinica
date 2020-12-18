@@ -14,24 +14,24 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-primary bg-primary fixed-top">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="index.php"><strong>Clínica del Dolor</strong></a>
+            <a class="navbar-brand text-white" href="index.php"><strong>Clínica del Dolor</strong></a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link btn btn-outline-info mr-3 mt-1" href="index.php">Inicio</a>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light mr-3 mt-1" href="index.php">Inicio</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link btn btn-outline-info mr-3 mt-1" href="citas.php"><Strong>Citas</Strong></a>
+                        <a class="nav-link btn btn-outline-light mr-3 mt-1" href="citas.php"><Strong>Citas</Strong></a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link btn btn-outline-info mr-3 mt-1" href="#">Gestión Interna</a>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light mr-3 mt-1" href="#">Gestión Interna</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link btn btn-outline-info mt-1" href="#">Contacto</a>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light mt-1" href="#">Contacto</a>
                     </li>
                 </ul>
             </div>   
@@ -41,7 +41,7 @@
         <div class="container">
             <div class="row justify-content-center mt-4">
                 <div class="col-md-11 mt-5">
-                    <div class="card mt-5 border border-primary">
+                    <div class="card mt-5 mb-5 border border-primary">
                         <h5 class="card-header text-center bg-primary text-white">Busqueda y Filtrado</h5>
                         <div class="card-body">
                             <form action="citas.php" method="POST">    
@@ -176,7 +176,7 @@
 
                         ?>
                         <?php if($respuesta=='1'): ?>
-                            <div class="card text-center mb-5 mt-5 border border-primary">
+                            <div class="card text-center mb-5 border border-primary">
                                 <h5 class="card-header text-center bg-primary text-white">Busqueda ejecutada</h5>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -228,26 +228,42 @@
                                                             <div class="modal fade" id="gestionar<?= $fila['idCita'] ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
-                                                                        <div class="modal-header">
+                                                                        <div class="modal-header bg-primary text-white font-weight-bold">
                                                                             <h5 class="modal-title">Gestion de cita</h5>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                     <span aria-hidden="true">&times;</span>
                                                                                 </button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <form action="citas.php" method="POST">
-                                                                                <div class="form-group row">
-                                                                                    <label class="col-sm-6 col-form-label">Documento:</label>
-                                                                                    <div class="col-sm-10 col-md-6">
-                                                                                        <input type="number" class="form-control" name="cancelar">
-                                                                                    </div>
+                                                                            <form action="cancelar.php?id=<?= $fila['idCita'] ?>" method="POST">
+                                                                                <h5>Se va a cancelar la siguiente cita</h5>
+                                                                                <div class="form-group">
+                                                                                    <label>Nombre Paciente:</label>
+                                                                                    <input type="text" class="form-control" name="paciente" value="<?= $nombreCompletoPaciente ?>" readonly>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label>Documento:</label>
+                                                                                    <input type="number" class="form-control" name="documento" value="<?= $fila['idPacienteCita'] ?>" readonly>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label>Hora cita:</label>
+                                                                                    <input type="text" class="form-control" name="hora" value="<?= $fila['horaInicioCita'] ?>" readonly>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label>Consultorio:</label>
+                                                                                    <input type="text" class="form-control" name="consultorio" value="<?= $fila['ubicacionConsultorio'] ?>" readonly>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label>Nombre médico:</label>
+                                                                                    <input type="text" class="form-control" name="medico" value="<?= $fila['nombreMedico']." ".$fila['apellidoMedico'] ?>" readonly>
+                                                                                </div>
+                                                                                <div class="modal-footer bg-primary">
+                                                                                    <button type="submit" class="btn btn-outline-light" name="botonCancelar">Aceptar</button>
+                                                                                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
                                                                                 </div>
                                                                             </form>
                                                                         </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="submit" class="btn btn-primary" name="botonCancelar">Cancelar</button>
-                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                        </div>
+                                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>                                                        
@@ -257,23 +273,34 @@
                                                         <div class="modal fade" id="gestionar<?= $fila['idCita'] ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
-                                                                    <div class="modal-header">
+                                                                    <div class="modal-header bg-primary text-white font-weight-bold">
                                                                         <h5 class="modal-title">Gestion de cita</h5>
                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">&times;</span>
                                                                             </button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <form action="citas.php" method="POST">
-                                                                            <div class="form-group row">
-                                                                                <label class="col-sm-6 col-form-label">Documento:</label>
-                                                                                <div class="col-sm-10 col-md-6">
-                                                                                    <input type="number" class="form-control" name="documento">
-                                                                                </div>
+                                                                        <form action="asignar.php?id=<?= $fila['idCita'] ?>" method="POST">
+                                                                            
+                                                                            <div class="form-group">
+                                                                                <label>Documento:</label>
+                                                                                <input type="number" class="form-control" name="documento">
                                                                             </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="submit" class="btn btn-primary" name="botonAsignar">Asignar</button>
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                            <div class="form-group">
+                                                                                <label>Hora cita:</label>
+                                                                                <input type="text" class="form-control" name="hora" value="<?= $fila['horaInicioCita'] ?>" readonly>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Consultorio:</label>
+                                                                                <input type="text" class="form-control" name="consultorio" value="<?= $fila['ubicacionConsultorio'] ?>" readonly>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label>Nombre médico:</label>
+                                                                                <input type="text" class="form-control" name="medico" value="<?= $fila['nombreMedico']." ".$fila['apellidoMedico'] ?>" readonly>
+                                                                            </div>
+                                                                            <div class="modal-footer bg-primary">
+                                                                                <button type="submit" class="btn btn-outline-light" name="botonAsignar">Asignar</button>
+                                                                                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
                                                                             </div>
                                                                         </form>
                                                                     </div>
@@ -282,37 +309,67 @@
                                                             </div>
                                                         </div>
                                                         
-                                                        
+                                                        <?php if ($estado=='Cancelar'): ?>
                                                         <!-- Modal -->
                                                         <div class="modal fade" id="detalles<?= $fila['idCita'] ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
-                                                                    <div class="modal-header">
+                                                                    <div class="modal-header bg-primary text-white font-weight-bold">
                                                                         <h5 class="modal-title">Detalles</h5>
                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">&times;</span>
                                                                             </button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        Body
+                                                                        <ul class="text-left">
+                                                                            <li><strong>Nombre paciente:</strong> <?= $nombreCompletoPaciente ?></li>
+                                                                            <li><strong>Tipo documento:</strong> <?= $fila['tipoDocumentoPaciente'] ?></li>
+                                                                            <li><strong>Número documento:</strong> <?= $fila['idPaciente'] ?></li>
+                                                                            <li><strong>Correo:</strong> <?= $fila['emailPaciente'] ?></li>
+                                                                            <li><strong>Fecha cita:</strong> <?= $fila['fechaCita'] ?></li>
+                                                                            <li><strong>Hora inicio:</strong> <?= $fila['horaInicioCita'] ?></li>
+                                                                            <li><strong>Hora fin:</strong> <?= $fila['horaFinCita'] ?></li>
+                                                                            <li><strong>Nombre médico:</strong> <?= $fila['nombreMedico']." ".$fila['apellidoMedico'] ?></li>
+                                                                            <li><strong>Consultorio:</strong> <?= $fila['ubicacionConsultorio'] ?></li>
+                                                                        </ul> 
                                                                     </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                    <div class="modal-footer bg-primary">
+                                                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cerrar</button>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php endif ?>
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="detalles<?= $fila['idCita'] ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header bg-primary text-white font-weight-bold">
+                                                                        <h5 class="modal-title">Detalles</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <ul class="text-left">
+                                                                            <li><strong>Nombre paciente:</strong> <?= $nombreCompletoPaciente ?></li>
+                                                                            <li><strong>Fecha cita:</strong> <?= $fila['fechaCita'] ?></li>
+                                                                            <li><strong>Hora inicio:</strong> <?= $fila['horaInicioCita'] ?></li>
+                                                                            <li><strong>Hora fin:</strong> <?= $fila['horaFinCita'] ?></li>
+                                                                            <li><strong>Nombre médico:</strong> <?= $fila['nombreMedico']." ".$fila['apellidoMedico'] ?></li>
+                                                                            <li><strong>Consultorio:</strong> <?= $fila['ubicacionConsultorio'] ?></li>
+                                                                        </ul>                                                                       
+                                                                    </div>
+                                                                    <div class="modal-footer bg-primary">
+                                                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cerrar</button>
                                                                         
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </tr>
-                                                    <?php if(isset($_POST["botonAsignar"])): ?>
-                                                        <?php
-                                                            $id = $fila['idCita'];
-                                                            $documento = $_POST['documento'];
-                                                            $transaccion = new BaseDatos();
-                                                            $consultaSQL = "call sp_agendarCita($id, $documento)";                                                        
-                                                            $transaccion->escribirDatos($consultaSQL);
-                                                        ?>
-                                                    <?php endif ?>                                                   
+                                                  
                                                 <?php endforeach ?>
                                                     
                                             </tbody>
@@ -338,7 +395,29 @@
         </div>
    
     </main>
-    <footer>
+    <footer class="bg-primary text-light">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-12 col-md-3 text-right mt-2">
+                    <address>
+                        Clínica del Dolor <br>
+                        Todos los derechos reservados <br>
+                        Medellín, 2020
+                    </address>                  
+                </div>
+                <div class="col-12 col-md-3 text-md-left text-right mb-2">
+                    <a href="..." class="mr-2" target="_blank">
+                    <img src="https://img.icons8.com/fluent/36/000000/instagram-new.png"/>
+                    </a>
+                    <a href="..." class="mr-2" target="_blank">
+                    <img src="https://img.icons8.com/ios/32/000000/facebook--v1.png"/>
+                    </a>
+                    <a href="..." target="_blank">
+                    <img src="https://img.icons8.com/ios-filled/32/000000/twitter-squared.png"/>
+                    </a>
+                </div>
+            </div>
+        </div>
     </footer>
     <script src="controlador.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

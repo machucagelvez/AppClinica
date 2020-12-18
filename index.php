@@ -35,6 +35,8 @@
     </header>
 
     <main>
+        <br>
+        <br>
         <div class="container">
             <div class="row justify-content-center mt-5">
                 <div class="col-8">
@@ -76,6 +78,7 @@
             </div>
         </div>
     </main>
+    <br>
 
     <footer class="bg-primary text-light">
         <div class="container">
