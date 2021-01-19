@@ -1,8 +1,8 @@
 <?php
 class BaseDatos{
     
-    public $usuarioBD = "root";
-    public $passwordBD = "";
+    public $usuarioBD = "ottos_27688956";
+    public $passwordBD = "8bsrh7pk";
 
     public function __construct()
     {
@@ -11,7 +11,7 @@ class BaseDatos{
 
     public function conectarBD(){
         
-        $infoBD = "mysql:host=localhost;dbname=clinica";
+        $infoBD = "mysql:host=sql313.tonohost.com;dbname=ottos_27688956_tiendavirtual";
 
         try{
             $conexionBD = new PDO($infoBD, $this->usuarioBD, $this->passwordBD);
