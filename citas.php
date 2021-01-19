@@ -17,23 +17,23 @@ $respuesta = null;
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-primary bg-primary fixed-top">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler btn btn-danger" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                Presionar
             </button>
             <a class="navbar-brand text-white" href="index.php"><strong>Clínica del Dolor</strong></a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-light mr-3 mt-1" href="index.php">Inicio</a>
-                    </li>
                     <li class="nav-item active">
-                        <a class="nav-link btn btn-outline-light mr-3 mt-1" href="citas.php"><Strong>Citas</Strong></a>
+                        <a class="nav-link btn btn-outline-light mr-3 mt-1" href="index.php"><strong>Inicio</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light mr-3 mt-1" href="citas.php">Citas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-outline-light mr-3 mt-1" href="#">Gestión Interna</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-light mt-1" href="#">Contacto</a>
+                        <a class="nav-link btn btn-outline-light  mr-3 mt-1" href="#">Contacto</a>
                     </li>
                 </ul>
             </div>

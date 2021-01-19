@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clínica del Dolor</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-primary bg-primary fixed-top">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler btn btn-danger" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <strong>Presionar</strong>
             </button>
             <a class="navbar-brand text-white" href="index.php"><strong>Clínica del Dolor</strong></a>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -27,7 +26,7 @@
                         <a class="nav-link btn btn-outline-light mr-3 mt-1" href="#">Gestión Interna</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-light mt-1" href="#">Contacto</a>
+                        <a class="nav-link btn btn-outline-light  mr-3 mt-1" href="#">Contacto</a>
                     </li>
                 </ul>
             </div>   

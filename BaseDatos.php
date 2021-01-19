@@ -11,7 +11,7 @@ class BaseDatos{
 
     public function conectarBD(){
         
-        $infoBD = "mysql:host=sql313.tonohost.com;dbname=ottos_27688956_tiendavirtual";
+        $infoBD = "mysql:host=sql313.tonohost.com;dbname=ottos_27688956_clinica";
 
         try{
             $conexionBD = new PDO($infoBD, $this->usuarioBD, $this->passwordBD);
