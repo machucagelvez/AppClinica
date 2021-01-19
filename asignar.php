@@ -9,12 +9,12 @@ include("BaseDatos.php");
         $consultorio = $_POST['consultorio'];
         $medico = $_POST['medico'];
         $transaccion = new BaseDatos();
-        $buscarPaciente = "call sp_buscarPaciente($documento)";
+        $buscarPaciente = "select idPaciente from paciente where idPaciente = $documento";
         $busquedadPaciente = $transaccion->leerDatos($buscarPaciente);
     
         if($busquedadPaciente){
             
-            $consultaSQL = "call sp_agendarCita($id, $documento)";   
+            $consultaSQL = "UPDATE cita SET estadoCita = 'agendada', idPacienteCita = $documento where idCita = $id";   
             $transaccion2 = new BaseDatos();                                                     
             $transaccion2->escribirDatos($consultaSQL);
             if ($transaccion2) {

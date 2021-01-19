@@ -10,7 +10,7 @@ include("BaseDatos.php");
         $consultorio = $_POST['consultorio'];
         $medico = $_POST['medico'];
         $transaccion = new BaseDatos();
-        $consultaSQL = "call sp_cancelarCita($id)";                                                        
+        $consultaSQL = "UPDATE cita SET estadoCita = 'disponible', idPacienteCita = null where idCita = $id";                                                        
         $transaccion->escribirDatos($consultaSQL);
         session_start();
         

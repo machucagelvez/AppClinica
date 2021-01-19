@@ -91,13 +91,13 @@
                     </address>                  
                 </div>
                 <div class="col-12 col-md-3 text-md-left text-right mb-2">
-                    <a href="..." class="mr-2" target="_blank">
+                    <a href="https://www.instagram.com/" class="mr-2" target="_blank">
                     <img src="https://img.icons8.com/fluent/36/000000/instagram-new.png"/>
                     </a>
-                    <a href="..." class="mr-2" target="_blank">
+                    <a href="https://es-la.facebook.com/" class="mr-2" target="_blank">
                     <img src="https://img.icons8.com/ios/32/000000/facebook--v1.png"/>
                     </a>
-                    <a href="..." target="_blank">
+                    <a href="https://twitter.com/" target="_blank">
                     <img src="https://img.icons8.com/ios-filled/32/000000/twitter-squared.png"/>
                     </a>
                 </div>
